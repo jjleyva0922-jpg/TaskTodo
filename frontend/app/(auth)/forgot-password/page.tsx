@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AuthLayout from '../../../components/auth/AuthLayout';
 import AuthCard from '../../../components/auth/AuthCard';
 import AuthHeader from '../../../components/auth/AuthHeader';
