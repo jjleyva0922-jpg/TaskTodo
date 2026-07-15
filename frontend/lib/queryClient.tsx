@@ -16,7 +16,7 @@ export function ReactQueryProvider({ children }: Props) {
             // Keep data fresh for 5 minutes by default
             staleTime: 1000 * 60 * 5,
             // Keep cache for 30 minutes so navigating away/back reuses it
-            cacheTime: 1000 * 60 * 30,
+            gcTime: 1000 * 60 * 30,
             // Don't refetch automatically when components remount (lazy load)
             refetchOnMount: false,
             // Don't refetch on window focus or reconnect to avoid noisy requests
