@@ -65,7 +65,15 @@ export function useAuth(): UseAuthReturn {
       
       router.push('/dashboard');
     } catch (err: any) {
-      const errorMsg = getErrorMessage(err) || 'Login failed';
+      // Normalize axios / raw error messages into friendly text
+      let errorMsg = getErrorMessage(err) || 'Login failed';
+      if (
+        (err && (err.status === 401 || err?.response?.status === 401)) ||
+        (typeof err === 'string' && err.includes('Request failed with status code 401')) ||
+        (err?.message && typeof err.message === 'string' && err.message.includes('Request failed with status code 401'))
+      ) {
+        errorMsg = 'Invalid email or password. Please try again.';
+      }
       setError(errorMsg);
       throw errorMsg;
     }
@@ -94,7 +102,14 @@ export function useAuth(): UseAuthReturn {
       
       router.push('/dashboard');
     } catch (err: any) {
-      const errorMsg = getErrorMessage(err) || 'Registration failed';
+      let errorMsg = getErrorMessage(err) || 'Registration failed';
+      if (
+        (err && (err.status === 401 || err?.response?.status === 401)) ||
+        (typeof err === 'string' && err.includes('Request failed with status code 401')) ||
+        (err?.message && typeof err.message === 'string' && err.message.includes('Request failed with status code 401'))
+      ) {
+        errorMsg = 'Invalid email or password. Please try again.';
+      }
       setError(errorMsg);
       throw errorMsg;
     }
