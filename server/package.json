@@ -1,0 +1,35 @@
+{
+  "prisma": {
+    "schema": "src/schema/schema.prisma"
+  },
+  "name": "simple-express-server",
+  "version": "1.0.0",
+  "description": "Simple Express server",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "dev:all": "concurrently \"npm run dev\" \"cd ../frontend && npm run dev\"",
+    "migrate": "prisma migrate dev",
+    "migrate:prod": "prisma migrate deploy",
+    "prisma:generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^5.7.1",
+    "@prisma/client": "^5.7.1",
+    "axios": "^1.18.1",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.11.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.1.14",
+    "prisma": "^5.7.1"
+  }
+}

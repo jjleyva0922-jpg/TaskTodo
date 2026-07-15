@@ -1,0 +1,26 @@
+$kind: http-request
+name: Get All Todos
+method: GET
+url: '{{base_url}}/todos'
+order: 2000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response is a JSON array", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.be.an("array");
+      });
+
+      pm.test("First item has id, title, userId fields (if array is non-empty)", function () {
+          var jsonData = pm.response.json();
+          if (jsonData.length > 0) {
+              pm.expect(jsonData[0]).to.have.property("id");
+              pm.expect(jsonData[0]).to.have.property("title");
+              pm.expect(jsonData[0]).to.have.property("userId");
+          }
+      });

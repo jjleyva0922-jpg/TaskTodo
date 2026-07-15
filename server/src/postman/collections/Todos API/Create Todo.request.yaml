@@ -1,0 +1,38 @@
+$kind: http-request
+name: Create Todo
+method: POST
+url: '{{base_url}}/todos'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Test Todo",
+      "description": "Created by Postman",
+      "userId": {{user_id}}
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has id, title, userId", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("id");
+          pm.expect(jsonData).to.have.property("title");
+          pm.expect(jsonData).to.have.property("userId");
+      });
+
+      pm.test("title equals 'Test Todo'", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.title).to.eql("Test Todo");
+      });
+
+      var jsonData = pm.response.json();
+      pm.environment.set("todo_id", jsonData.id);

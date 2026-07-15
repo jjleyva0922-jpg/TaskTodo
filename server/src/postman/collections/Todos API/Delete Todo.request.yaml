@@ -1,0 +1,22 @@
+$kind: http-request
+name: Delete Todo
+method: DELETE
+url: '{{base_url}}/todos/{{todo_id}}'
+order: 6000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has message field", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("message");
+      });
+
+      pm.test("message contains 'deleted' (case-insensitive)", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.message.toLowerCase()).to.include("deleted");
+      });

@@ -1,0 +1,22 @@
+$kind: http-request
+name: Get Todo by ID
+method: GET
+url: '{{base_url}}/todos/{{todo_id}}'
+order: 4000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response id matches todo_id environment variable", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.id).to.eql(Number(pm.environment.get("todo_id")));
+      });
+
+      pm.test("Response has title field", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("title");
+      });

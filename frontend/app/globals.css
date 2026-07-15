@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--transition-duration: 200ms;
+}
+
+html, body {
+	transition: background-color var(--transition-duration) color var(--transition-duration);
+}
+
+/* light/dark background defaults */
+html { background-color: #f8fafc; }
+html.dark { background-color: #0b1220; }
