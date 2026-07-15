@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "projects": [
+    {
+      "name": "TaskTodo Frontend",
+      "src": "frontend",
+      "builds": [
+        {
+          "src": "package.json",
+          "use": "@vercel/next@latest"
+        }
+      ],
+      "routes": [
+        {
+          "src": "/(.*)",
+          "dest": "/"
+        }
+      ],
+      "env": {
+        "NEXT_PUBLIC_API_BASE_URL": "@next_public_api_base_url"
+      }
+    }
+  ]
+}
