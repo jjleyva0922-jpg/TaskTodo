@@ -4,7 +4,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { todoFormSchema, type TodoFormValues } from '../../lib/validation/todo';
-import { TodoStatusBadge } from './TodoStatusBadge';
 
 type Props = {
   defaultValues?: Partial<TodoFormValues>;
@@ -18,7 +17,6 @@ export default function TodoForm({ defaultValues, submitLabel, loading = false, 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<TodoFormValues>({
     resolver: zodResolver(todoFormSchema),
@@ -28,8 +26,6 @@ export default function TodoForm({ defaultValues, submitLabel, loading = false, 
       completed: defaultValues?.completed ?? false,
     },
   });
-
-  const completed = watch('completed');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
