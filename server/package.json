@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "build": "npm run prisma:generate",
     "dev:all": "concurrently \"npm run dev\" \"cd ../frontend && npm run dev\"",
     "migrate": "prisma migrate dev",
     "migrate:prod": "prisma migrate deploy",
