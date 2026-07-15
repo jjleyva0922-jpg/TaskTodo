@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Todo, ApiError, UpdateTodoInput } from '../types';
 import { todoService } from '../services/todo.service';
 
-export function useUpdateTodo(userId?: number | string, onSuccess?: (data: Todo) => void, onError?: (error: ApiError) => void) {
+export function useUpdateTodo(userId?: number | string, onSuccess?: (data: Todo) => void) {
   const queryClient = useQueryClient();
   const id = typeof userId === 'string' ? parseInt(userId, 10) : userId;
 
@@ -14,6 +14,5 @@ export function useUpdateTodo(userId?: number | string, onSuccess?: (data: Todo)
       if (id) queryClient.invalidateQueries({ queryKey: ['todos', id] });
       onSuccess?.(data);
     },
-    onError,
   });
 }
