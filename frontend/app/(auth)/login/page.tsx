@@ -26,6 +26,10 @@ export default function LoginPage() {
   } = useForm<LoginSchema>({ resolver: zodResolver(loginSchema) });
 
   const getErrorMessage = (err: any) => {
+    // Map HTTP 401 Unauthorized to a friendly credentials message
+    if (err && (err.status === 401 || err?.response?.status === 401)) {
+      return 'Invalid email or password. Please try again.';
+    }
     if (!err) return 'Invalid email or password. Please try again.';
     if (typeof err === 'string') return err;
     if (typeof err?.status === 'number' && typeof err?.message === 'string') return err.message;
